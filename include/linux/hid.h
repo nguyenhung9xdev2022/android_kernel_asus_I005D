@@ -185,6 +185,16 @@ struct hid_item {
  */
 #define HID_GD_SYSTEM_MULTIAXIS	0x0001000e
 
+#if defined ASUS_ZS673KS_PROJECT || defined ASUS_PICASSO_PROJECT
+#define HID_BTN_5		0x00010006
+#define HID_BTN_6		0x00010007
+#define HID_BTN_7		0x00010008
+#define HID_BTN_9		0x00010009
+#define HID_BTN_10		0x0001000a
+#define HID_BTN_11		0x0001000b
+#define HID_BTN_12		0x0001000c
+#endif
+
 #define HID_GD_X		0x00010030
 #define HID_GD_Y		0x00010031
 #define HID_GD_Z		0x00010032
@@ -835,6 +845,11 @@ static inline bool hid_is_using_ll_driver(struct hid_device *hdev,
 		struct hid_ll_driver *driver)
 {
 	return hdev->ll_driver == driver;
+}
+
+static inline bool hid_is_usb(struct hid_device *hdev)
+{
+	return hid_is_using_ll_driver(hdev, &usb_hid_driver);
 }
 
 #define	PM_HINT_FULLON	1<<5
